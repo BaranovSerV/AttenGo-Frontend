@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { BASE_BACKEND_URL } from '../../../config';
+import { BASE_BACKEND_URL } from '../../config';
 
 
 const fetchSchedule = async (startTime, endTime, groupId) => {
     try {
-        const response = await axios.get(`${BASE_BACKEND_URL}/api/schedule/${groupId}`, {
+        const response = await axios.get(`${BASE_BACKEND_URL}/schedule/${groupId}`, {
             params: {
                 start_time: startTime,
                 end_time: endTime,
@@ -19,14 +19,10 @@ const fetchSchedule = async (startTime, endTime, groupId) => {
 
 export { fetchSchedule };
 
-// src/api.js
-
-import axios from 'axios';
-
 const submitAttendance = async (date, attendanceData) => {
     try {
         const response = await axios.post(
-            `${BASE_BACKEND_URL}/api/attendance/`,
+            `${BASE_BACKEND_URL}/attendance/`,
             {
                 date,
                 attendance_data: attendanceData

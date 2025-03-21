@@ -1,4 +1,6 @@
-export async function loginUser(userData, BASE_BACKEND_URL) {
+import { BASE_BACKEND_URL } from '../../config';
+
+export async function loginUser(userData) {
     try {
         const response = await fetch(`${BASE_BACKEND_URL}/auth/login`, {
             method: 'POST',

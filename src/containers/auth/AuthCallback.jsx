@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { BASE_BACKEND_URL } from '../../../config';
 import { loginUser } from '../../api/Auth';
 
 const AuthCallback = () => {
@@ -27,7 +26,7 @@ const AuthCallback = () => {
 
         async function fetchTokens() {
             try {
-                const data = await loginUser(userData, BASE_BACKEND_URL);
+                const data = await loginUser(userData);
                 console.log('Tokens:', data);
                 setSuccess(true);
             } catch (error) {

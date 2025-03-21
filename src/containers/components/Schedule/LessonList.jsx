@@ -1,5 +1,3 @@
-// src/components/Schedule/LessonList.js
-
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { submitAttendance } from '../../../api/Schedule'
