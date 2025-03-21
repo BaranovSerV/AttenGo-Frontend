@@ -1,6 +1,8 @@
+// src/components/Schedule/LessonList.js
+
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import axios from 'axios';
+import { submitAttendance } from '../../../api/Schedule'
 import AttendanceSelector from './AttendanceSelector';
 
 const LessonList = ({ lessons, selectedDate }) => {
@@ -25,17 +27,8 @@ const LessonList = ({ lessons, selectedDate }) => {
         }, {});
 
         try {
-            const response = await axios.post(
-                'http://localhost:8000/api/attendance/',
-                {
-                    date: selectedDate,
-                    attendance_data: attendanceData
-                },
-                {
-                    withCredentials: true, // это для отправки cookies с запросом
-                }
-            );
-            console.log('Attendance successfully submitted:', response.data);
+            const response = await submitAttendance(selectedDate, attendanceData);  // Используем импортированную функцию
+            console.log('Attendance successfully submitted:', response);
         } catch (error) {
             console.error('Error submitting attendance:', error);
         }

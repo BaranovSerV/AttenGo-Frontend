@@ -1,5 +1,7 @@
+// src/components/Schedule/Schedule.js
+
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchSchedule } from '../../api/Schedule';
 import DaySelector from '../components/Schedule/DaySelector';
 import LessonList from '../components/Schedule/LessonList';
 
@@ -10,13 +12,8 @@ const Schedule = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/schedule/17968', {
-                    params: {
-                        start_time: '2025-02-01',
-                        end_time: '2025-02-20',
-                    },
-                });
-                setSchedule(response.data.schedule_of_group.schedule);
+                const scheduleData = await fetchSchedule('2025-02-01', '2025-02-20', '17968');
+                setSchedule(scheduleData);
             } catch (error) {
                 console.error('Ошибка при загрузке расписания:', error);
             }
