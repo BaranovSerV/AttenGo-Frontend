@@ -1,25 +1,25 @@
 import axios from 'axios';
 import { BASE_BACKEND_URL } from '../../config';
+import { getAccessToken } from './Auth'
 
+export const fetchSchedule = async (startTime, endTime) => {
+    const accessToken = await getAccessToken();
 
-const fetchSchedule = async (startTime, endTime, groupId) => {
-    try {
-        const response = await axios.get(`${BASE_BACKEND_URL}/schedule/${groupId}`, {
-            params: {
-                start_time: startTime,
-                end_time: endTime,
-            },
-        });
-        return response.data.schedule_of_group.schedule;
-    } catch (error) {
-        console.error('Ошибка при загрузке расписания:', error);
-        throw error;
-    }
+    const response = await axios.get(`${BASE_BACKEND_URL}/schedule`, {
+        params: {
+            start_time: startTime,
+            end_time: endTime,
+        },
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+    });
+
+    return response;
 };
 
-export { fetchSchedule };
-
-const submitAttendance = async (date, attendanceData) => {
+export const submitAttendance = async (date, attendanceData) => {
     try {
         const response = await axios.post(
             `${BASE_BACKEND_URL}/attendance/`,
@@ -38,4 +38,3 @@ const submitAttendance = async (date, attendanceData) => {
     }
 };
 
-export { submitAttendance };

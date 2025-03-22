@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../api/Auth';
 
 const AuthCallback = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -29,6 +31,7 @@ const AuthCallback = () => {
                 const data = await loginUser(userData);
                 console.log('Tokens:', data);
                 setSuccess(true);
+                navigate('/schedule');
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -37,11 +40,7 @@ const AuthCallback = () => {
         }
 
         fetchTokens();
-    }, []); // Убрали userData из зависимостей
-
-    if (loading) return <div className="loading">Loading...</div>;
-    if (error) return <div className="error">Error: {error}</div>;
-    if (success) return <div className="success">Success!</div>;
+    }, [navigate]);
 
     return null;
 };
