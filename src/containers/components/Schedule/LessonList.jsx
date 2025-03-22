@@ -66,9 +66,11 @@ const LessonList = ({ lessons, selectedDate }) => {
                 );
             })}
 
-            <button className="submit-button" onClick={handleSubmitAttendance}>
-                Отправить посещаемость
-            </button>
+            <div className="submit-button-container">
+                <button className="submit-button" onClick={handleSubmitAttendance}>
+                    Отправить посещаемость
+                </button>
+            </div>
         </div>
     );
 };
